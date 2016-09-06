@@ -1,0 +1,35 @@
+.widget{
+    background-color: #efefef;
+    margin: 5px;
+}
+
+.widget-content{
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-top: 15px;
+}
+
+.widget-title{
+    font-size: 16px;
+    padding: 10px;
+}
+
+.widget-value{
+    font-size: 32px;
+}
+
+.widget-unit{
+    font-size: 28px;
+}
+
+.vertical-align-center{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.vertical-offset{
+    margin-top: 70px;
+}
