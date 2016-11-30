@@ -1,6 +1,7 @@
 import Expenses from "../expenses/Index"
 import Incomes from "../incomes/Index"
 import Movies from "../movies/Index"
+import Organization from "../organization/Index"
 
 var NavBar = React.createClass({
 
@@ -12,6 +13,9 @@ var NavBar = React.createClass({
     },
     openMovies: function(){
         this.setContent(<Movies />);
+    },
+    openOrganization: function(){
+        this.setContent(<Organization />);
     },
     setContent: function(module){
         var mountNode = document.getElementById("content");
@@ -34,6 +38,7 @@ var NavBar = React.createClass({
                             </li>
                             <li><a href="#" onClick={this.openExpenses}>Expenses</a></li>
                             <li><a href="#" onClick={this.openIncomes}>Incomes</a></li>
+                            <li><a href="#" onClick={this.openOrganization}>Organization</a></li>
                             <li><a href="#" onClick={this.openMovies}>Movies</a></li>
                         </ul>
                     </div>

@@ -290,3 +290,29 @@ api.deleteExpense = function(valueId){
     $.ajax(call);
 	return callback;
 };
+
+api.getMovies = function(query){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "movie?" + $.param(query);
+
+    $.ajax(call);
+	return callback;
+};
+
+api.getTasks = function(status, priority, type){
+
+    var query={
+        status: status,
+        priority: priority,
+        type: type
+    };
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "task?" + $.param(query);
+
+    $.ajax(call);
+	return callback;
+};
