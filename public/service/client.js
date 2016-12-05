@@ -31,11 +31,15 @@ api.get = function(callback){
     callback.OnSuccess = function () { };
 
 	var ajax = {
+        headers:{
+            Accept : "application/json"
+        },
 		type: "GET",
 		dataType: "json",
 		cache: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", api.token);
+            xhr.setRequestHeader ("Accept", "application/json");
         },
         complete: function (xhr) {
             callback.OnComplete(xhr);

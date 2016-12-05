@@ -1,7 +1,13 @@
 import ItemsPanel from "../common/ItemsPanel"
+import NewTask from "./NewTask"
 
 var Movies = React.createClass({
 
+    toggle: function(){
+        this.setState({
+            modal: !this.state.modal
+        });
+    },
 	  componentDidMount: function() {
           
           api.getTasks('in-progress').OnSuccess = function(items){
@@ -43,7 +49,24 @@ var Movies = React.createClass({
         return (
             <div>
                 <div className="row">
-                    <div className="col-lg-12">
+                    <button type="button" className="btn btn-default" data-toggle="modal" data-target="#myModal">
+                        <span className="fa fa-plus"></span> New
+                    </button>
+                </div>
+                <div className="row">
+                    <div className="col-lg-4">
+                        <ItemsPanel title="New">
+                            {tasksNew}
+                        </ItemsPanel>
+                    </div>
+                    <div className="col-lg-4">
+                        <ItemsPanel title="To do">
+                            <ul className="list-group">
+                                {tasksToDo}
+                            </ul>
+                        </ItemsPanel>
+                    </div>
+                    <div className="col-lg-4">
                         <ItemsPanel title="In progress">
                             <ul className="list-group">
                                 {tasksInProgress}
@@ -51,22 +74,7 @@ var Movies = React.createClass({
                         </ItemsPanel>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-lg-12">
-                        <ItemsPanel title="To do">
-                            <ul className="list-group">
-                                {tasksToDo}
-                            </ul>
-                        </ItemsPanel>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-12">
-                        <ItemsPanel title="New">
-                            {tasksNew}
-                        </ItemsPanel>
-                    </div>
-                </div>
+                <NewTask />
             </div>
         )
       }
