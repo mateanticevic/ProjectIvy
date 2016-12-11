@@ -30,21 +30,26 @@ var Movies = React.createClass({
             tasksInProgress: []
         };
 	  },
-      taskRender: function(task){
+      onDragTaskStart: function(event){
+          alert();
+      },
+      onDropTask: function(event){
+          alert();
+      },
+      taskRender: function(task, that){
           return(
-              <li className="list-group-item">
+              <li className="list-group-item" draggable="true" ondragstart={() => that.onDragTaskStart(event)}>
                 {task.projectValueId}-{task.valueId}
                 &nbsp;{task.name}
                 {task.lastChange.status}
-                <span className="label label-success pull-right">Success</span>
               </li>
               )
       },
       render: function () {
           
-          var tasksInProgress = this.state.tasksInProgress.map(this.taskRender);
-          var tasksNew = this.state.tasksNew.map(this.taskRender);
-          var tasksToDo = this.state.tasksToDo.map(this.taskRender);
+          var tasksInProgress = this.state.tasksInProgress.map(this.taskRender, this);
+          var tasksNew = this.state.tasksNew.map(this.taskRender, this);
+          var tasksToDo = this.state.tasksToDo.map(this.taskRender, this);
 
         return (
             <div>
@@ -55,7 +60,7 @@ var Movies = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-lg-4">
-                        <ItemsPanel title="New">
+                        <ItemsPanel title="New" ondrop={this.onDropTask}>
                             {tasksNew}
                         </ItemsPanel>
                     </div>

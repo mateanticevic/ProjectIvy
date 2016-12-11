@@ -13,4 +13,4 @@ var navBarMount = document.getElementById("navbar");
 ReactDOM.render(<NavBar />, navBarMount);
 
 var mountNode = document.getElementById("content");
-ReactDOM.render(<Expenses />, mountNode);
+ReactDOM.render(<Dashboard />, mountNode);

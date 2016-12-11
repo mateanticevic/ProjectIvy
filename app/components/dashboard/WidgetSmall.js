@@ -11,7 +11,7 @@ var WidgetSmall = React.createClass({
       render: function () {
 
         return (
-			<div className="col-lg-6">
+			<div>
                 <div className="widget">
                     <div className="widget-title">{this.props.title}</div>
                     <div className="widget-content">
