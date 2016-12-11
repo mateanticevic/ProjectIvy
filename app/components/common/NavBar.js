@@ -2,9 +2,13 @@ import Expenses from "../expenses/Index"
 import Incomes from "../incomes/Index"
 import Movies from "../movies/Index"
 import Organization from "../organization/Index"
+import Home from "../dashboard/Index"
 
 var NavBar = React.createClass({
 
+    openHome: function(){
+        this.setContent(<Home />);
+    },
     openExpenses: function(){
         this.setContent(<Expenses />);
     },
@@ -27,15 +31,7 @@ var NavBar = React.createClass({
                 <div className="container">
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav">
-                            <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                    Finance <span className="caret"></span>
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a href="#" onClick={this.openExpenses}>Expenses</a></li>
-                                    <li><a href="#" onClick={this.openIncomes}>Incomes</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="#" onClick={this.openHome}><i className={faIcon("fa-home fa-lg")} aria-hidden="true"></i></a></li>
                             <li><a href="#" onClick={this.openExpenses}>Expenses</a></li>
                             <li><a href="#" onClick={this.openIncomes}>Incomes</a></li>
                             <li><a href="#" onClick={this.openOrganization}>Organization</a></li>

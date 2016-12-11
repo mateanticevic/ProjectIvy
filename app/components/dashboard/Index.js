@@ -6,8 +6,8 @@ var Dashboard = React.createClass({
 
 	  componentDidMount: function() {
 
-        var from = '2016-11-24';
-        var to = '2016-11-24T23:59:59';
+        var from = dateTime.today.formatted;
+        var to = dateTime.today.formatted + "T23:59:59";
 
         api.getMovieCount(from, to).OnSuccess = function(count){
             this.setState({movieCount: count});
@@ -58,7 +58,7 @@ var Dashboard = React.createClass({
                     </div>
                     <div className="row">
                         <WidgetSmall value={this.state.trackingCount.number} unit={this.state.trackingCount.unit} title="Tracking count"/>
-                        <WidgetSmall value={this.state.trackingDistance.number} unit={this.state.trackingDistance.unit} title="Distance day"/>                    
+                        <WidgetSmall value={this.state.trackingDistance.number} unit="km" title="Distance day"/>                    
                     </div>
                 </div>
             </div>

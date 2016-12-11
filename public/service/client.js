@@ -1,6 +1,7 @@
 var api = api || {};
 
-api.domain = "http://localhost:4680/";
+//api.domain = "http://localhost:4680/";
+api.domain = "http://api2.anticevic.net/";
 
 api.token = "GMzoiVCjI0q3w7dB+VXGUw==";
 
@@ -243,6 +244,21 @@ api.getExpenses = function(query){
     var callback = {};
 	var call = api.get(callback);
     call.url = api.domain + "expense?" + $.param(query);
+
+    $.ajax(call);
+	return callback;
+};
+
+api.getExpenseCount = function(from, to){
+
+    var query={
+        from: from,
+        to: to
+    };
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = call.url = api.domain + "expense/count?" + $.param(query);
 
     $.ajax(call);
 	return callback;

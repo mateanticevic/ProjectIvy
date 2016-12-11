@@ -61,3 +61,20 @@ function expenseToBinding(expense){
         vendorValueId: expense.vendor ? expense.vendor.valueId : null
     };
 };
+
+var dateTime = dateTime || {};
+
+dateTime.today = new Date();
+dateTime.today.formatted = formatDateForQuery(dateTime.today);
+
+dateTime.tomorrow = new Date(dateTime.today.getFullYear(), dateTime.today.getMonth(), dateTime.today.getDay() + 1);
+dateTime.tomorrow.formatted = formatDateForQuery(dateTime.tomorrow);
+
+dateTime.firstDayThisYear = new Date(dateTime.today.getFullYear(), 0, 1);
+dateTime.firstDayThisYear.formatted = formatDateForQuery(dateTime.firstDayThisYear);
+
+dateTime.firstDayThisMonth = new Date(dateTime.today.getFullYear(), dateTime.today.getMonth(), 1);
+dateTime.firstDayThisMonth.formatted = formatDateForQuery(dateTime.firstDayThisMonth);
+
+dateTime.firstDayThisWeek = new Date(dateTime.today.getFullYear(), dateTime.today.getMonth(), dateTime.today.getDate() - dateTime.today.getDay());
+dateTime.firstDayThisWeek.formatted = formatDateForQuery(dateTime.firstDayThisWeek);

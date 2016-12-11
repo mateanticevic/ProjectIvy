@@ -1,11 +1,12 @@
 var WidgetSmall = React.createClass({
 
 	  componentDidMount: function() {
-          console.log("done!");
+          $(this.unit).hide();
 	  },
       componentDidUpdate: function(prevProps, prevState){
           if(this.props.value != undefined){
               $(this.loadingIcon).hide();
+              $(this.unit).show();
           }
       },
       render: function () {
@@ -15,7 +16,7 @@ var WidgetSmall = React.createClass({
                 <div className="widget">
                     <div className="widget-title">{this.props.title}</div>
                     <div className="widget-content">
-                        <span className="widget-value">{this.props.value}</span> <span className="widget-unit">{this.props.unit}</span>
+                        <span className="widget-value">{this.props.value}</span> <span ref={(unit) => this.unit = unit} className="widget-unit">{this.props.unit}</span>
                         <i ref={(icon) => this.loadingIcon = icon} className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
                     </div>
                 </div>
