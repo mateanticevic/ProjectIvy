@@ -6,6 +6,11 @@ import Home from "../dashboard/Index"
 
 var NavBar = React.createClass({
 
+    componentDidMount: function(){
+        api.getUser().OnSuccess = function(user){
+            this.setState({displayName: user.firstName + " " + user.lastName});
+        }.bind(this);
+    },
     openHome: function(){
         this.setContent(<Home />);
     },
@@ -20,6 +25,11 @@ var NavBar = React.createClass({
     },
     openOrganization: function(){
         this.setContent(<Organization />);
+    },
+    getInitialState: function(){
+        return{
+            displayName: ""
+        }
     },
     setContent: function(module){
         var mountNode = document.getElementById("content");
@@ -36,6 +46,9 @@ var NavBar = React.createClass({
                             <li><a href="#" onClick={this.openIncomes}>Incomes</a></li>
                             <li><a href="#" onClick={this.openOrganization}>Organization</a></li>
                             <li><a href="#" onClick={this.openMovies}>Movies</a></li>
+                        </ul>
+                        <ul className="nav navbar-nav navbar-right">
+                            <li><a href="#" onClick={this.openHome}><i className={faIcon("fa-user fa-lg")} aria-hidden="true"></i> {this.state.displayName}</a></li>
                         </ul>
                     </div>
                 </div>

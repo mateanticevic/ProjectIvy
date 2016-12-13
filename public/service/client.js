@@ -1,9 +1,9 @@
 var api = api || {};
 
-//api.domain = "http://localhost:4680/";
-api.domain = "http://api2.anticevic.net/";
+api.domain = "http://localhost:4680/";
+//api.domain = "http://api2.anticevic.net/";
 
-api.token = "dev";
+api.token = "T5G1pMw6sEWCXeAx+PpVqQ==";
 
 api.delete = function(callback){
 	callback.OnComplete = function () { };
@@ -332,6 +332,16 @@ api.getTasks = function(status, priority, type){
     var callback = {};
 	var call = api.get(callback);
     call.url = api.domain + "task?" + $.param(query);
+
+    $.ajax(call);
+	return callback;
+};
+
+api.getUser = function(){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "user";
 
     $.ajax(call);
 	return callback;
