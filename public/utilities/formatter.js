@@ -18,6 +18,9 @@ function formatBigNumber(number, round = 0){
         format.number = parseInt((number / thousand));
         format.unit = "k";
     }
+    else{
+        format.number = number;
+    }
 
     return format;
 };
@@ -78,3 +81,11 @@ dateTime.firstDayThisMonth.formatted = formatDateForQuery(dateTime.firstDayThisM
 
 dateTime.firstDayThisWeek = new Date(dateTime.today.getFullYear(), dateTime.today.getMonth(), dateTime.today.getDate() - dateTime.today.getDay());
 dateTime.firstDayThisWeek.formatted = formatDateForQuery(dateTime.firstDayThisWeek);
+
+dateTime.next = function(day){
+    return new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1);
+};
+
+dateTime.previous = function(day){
+    return new Date(day.getFullYear(), day.getMonth(), day.getDate() - 1);
+};

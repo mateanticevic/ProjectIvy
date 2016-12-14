@@ -4,9 +4,13 @@ var WidgetSmall = React.createClass({
           $(this.unit).hide();
 	  },
       componentDidUpdate: function(prevProps, prevState){
-          if(this.props.value != undefined){
+          if(this.props.value != undefined && this.props.value != null){
               $(this.loadingIcon).hide();
               $(this.unit).show();
+          }
+          else{
+              $(this.loadingIcon).show();
+              $(this.unit).hide();              
           }
       },
       render: function () {

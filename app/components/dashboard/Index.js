@@ -1,13 +1,25 @@
-import WidgetLarge from "./WidgetLarge";
-import WidgetSmall from "./WidgetSmall";
+import Widget from "./WidgetSmall";
 import Map from "../common/Map";
 
 var Dashboard = React.createClass({
 
 	  componentDidMount: function() {
 
-        var from = dateTime.today.formatted;
-        var to = dateTime.today.formatted + "T23:59:59";
+        this.loadDay(dateTime.today);
+	  },
+      loadDay: function(day) {
+
+        this.setState({
+            trackingCount: { value: null, unit: "" },
+            trackingDistance: { value: null, unit: "" },
+            expenseSum: null,
+            movieCount: null
+        });
+
+        var formatted = formatDateForQuery(day);
+
+        var from = formatted;
+        var to = formatted + "T23:59:59";
 
         api.getMovieCount(from, to).OnSuccess = function(count){
             this.setState({movieCount: count});
@@ -34,31 +46,51 @@ var Dashboard = React.createClass({
             api.getTrackings(from, to).OnSuccess = function(trackings){
                 this.setState({trackingDay: trackings});
             }.bind(this);                   
-        }.bind(this);        
-
-	  },
+        }.bind(this);  
+      },
 	  getInitialState: function() {
 		return {
+            currentDay: new Date(),
             trackingCount: { value: 0, unit: "" },
             trackingDistance: { value: 0, unit: "" },
             trackingLast: {latitude: 0, longitude: 0},
             trackingDay: []
         };
 	  },
+      onClickNextDay: function() {
+          var nextDay = dateTime.next(this.state.currentDay);
+          this.setState({currentDay: nextDay});
+
+          this.loadDay(nextDay);
+      },
+      onClickPreviousDay: function() {
+          var previousDay = dateTime.previous(this.state.currentDay);
+          this.setState({currentDay: previousDay});
+
+          this.loadDay(previousDay);
+      },
       render: function () {
         return (
-			<div className="row">
-                <div className="col-lg-8">
-                    <Map location={this.state.trackingLast} route={this.state.trackingDay} />
-                </div>            
-                <div className="col-lg-4">
-                    <div className="row">
-                        <WidgetSmall value={this.state.movieCount} title="Movies watched"/>
-                        <WidgetSmall value={this.state.expenseSum} unit="kn" title="Spent"/>
+            <div>
+                <div className="row">
+                    <div className="btn-group btn-group-sm" role="group" aria-label="Large button group">
+                        <button type="button" className="btn btn-default" onClick={this.onClickPreviousDay}>Previous</button>
+                        <button type="button" className="btn btn-default" onClick={this.onClickNextDay}>Next</button>
                     </div>
-                    <div className="row">
-                        <WidgetSmall value={this.state.trackingCount.number} unit={this.state.trackingCount.unit} title="Tracking count"/>
-                        <WidgetSmall value={this.state.trackingDistance.number} unit="km" title="Distance day"/>                    
+                </div>
+                <div className="row">
+                    <div className="col-lg-8">
+                        <Map location={this.state.trackingLast} route={this.state.trackingDay} />
+                    </div>            
+                    <div className="col-lg-4">
+                        <div className="row">
+                            <Widget value={this.state.movieCount} title="Movies watched"/>
+                            <Widget value={this.state.expenseSum} unit="kn" title="Spent"/>
+                        </div>
+                        <div className="row">
+                            <Widget value={this.state.trackingCount.number} unit={this.state.trackingCount.unit} title="Tracking count"/>
+                            <Widget value={this.state.trackingDistance.number} unit="km" title="Distance day"/>                    
+                        </div>
                     </div>
                 </div>
             </div>

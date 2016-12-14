@@ -27,19 +27,26 @@ var Map = React.createClass({
               map.setCenter(new google.maps.LatLng(this.props.location.latitude, this.props.location.longitude));
           }
 
-        var flightPath = new google.maps.Polyline({
-          path: this.props.route,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 4
-        });
-
-        flightPath.setMap(map);          
+          while(this.state.movements.length != 0){
+              this.state.movements[0].setMap(null);
+              this.state.movements.splice(0,1);
+          }
+          
+          var polyline = new google.maps.Polyline({
+            path: this.props.route,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 4
+          });
+          
+          polyline.setMap(map);
+          this.state.movements.push(polyline);        
       },      
 	  getInitialState: function() {
 		return {
-            map: {}
+            map: {},
+            movements: []
         };
 	  },
       render: function () {
