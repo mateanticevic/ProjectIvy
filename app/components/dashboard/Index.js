@@ -1,10 +1,9 @@
-import Widget from "./WidgetSmall";
+import Widget from "./Widget";
 import Map from "../common/Map";
 
 var Dashboard = React.createClass({
 
-	  componentDidMount: function() {
-
+	  componentDidMount: function() {       
         this.loadDay(dateTime.today);
 	  },
       loadDay: function(day) {

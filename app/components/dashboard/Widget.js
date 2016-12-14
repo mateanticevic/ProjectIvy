@@ -1,4 +1,4 @@
-var WidgetSmall = React.createClass({
+var Widget = React.createClass({
 
 	  componentDidMount: function() {
           $(this.unit).hide();
@@ -29,4 +29,4 @@ var WidgetSmall = React.createClass({
       }
   });  
    
-module.exports = WidgetSmall;
+module.exports = Widget;

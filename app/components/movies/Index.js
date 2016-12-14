@@ -1,6 +1,6 @@
 import ItemsPanel from "../common/ItemsPanel"
 import TableMovies from "./TableMovies"
-import Widget from "../dashboard/WidgetSmall"
+import Widget from "../dashboard/Widget"
 
 var Movies = React.createClass({
 

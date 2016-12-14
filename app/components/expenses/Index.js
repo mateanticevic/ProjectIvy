@@ -4,7 +4,7 @@ import Options from "./Options";
 import DatePicker from "../common/DatePicker";
 import ItemsPanel from "../common/ItemsPanel"
 import FilterPanel from "../common/FilterPanel"
-import Widget from "../dashboard/WidgetSmall"
+import Widget from "../dashboard/Widget"
 
 var Index = React.createClass({
     componentDidMount: function () {

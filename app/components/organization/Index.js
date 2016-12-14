@@ -1,5 +1,4 @@
 import ItemsPanel from "../common/ItemsPanel"
-import NewTask from "./NewTask"
 
 var Movies = React.createClass({
 
@@ -79,7 +78,6 @@ var Movies = React.createClass({
                         </ItemsPanel>
                     </div>
                 </div>
-                <NewTask />
             </div>
         )
       }
