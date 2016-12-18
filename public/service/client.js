@@ -3,7 +3,7 @@ var api = api || {};
 api.domain = "http://localhost:4680/";
 //api.domain = "http://api2.anticevic.net/";
 
-api.token = "T5G1pMw6sEWCXeAx+PpVqQ==";
+api.token = "";
 
 api.delete = function(callback){
 	callback.OnComplete = function () { };
@@ -53,20 +53,28 @@ api.get = function(callback){
 	return ajax;
 };
 
-api.post = function(callback){
+api.post = function(callback, noAuth){
 	callback.OnComplete = function () { };
     callback.OnSuccess = function () { };
+    callback.OnError = function () { };
 
 	var ajax = {
 		type: "POST",
-		dataType: "json",
 		cache: false,
         contentType: "application/json",
         beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", api.token);
+            if(noAuth){
+
+            }
+            else{
+                xhr.setRequestHeader ("Authorization", api.token);
+            }
         },
         complete: function (xhr) {
             callback.OnComplete(xhr);
+        },
+        error: function(xhr, ex){
+            callback.OnError(xhr, ex);
         },
         success: function (data) {
             callback.OnSuccess(data);
@@ -97,6 +105,21 @@ api.put = function(callback){
     };
 
 	return ajax;
+};
+
+api.postToken = function(username, password){
+
+    var query={
+        username: username,
+        password: password
+    };
+
+    var callback = {};
+	var call = api.post(callback, true);
+    call.url = api.domain + "token?" + $.param(query);
+
+    $.ajax(call);
+	return callback;
 };
 
 api.getMovieCount = function(from, to){
