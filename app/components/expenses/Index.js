@@ -9,6 +9,8 @@ import Widget from "../dashboard/Widget"
 var Index = React.createClass({
     componentDidMount: function () {
 
+        init.controls();
+
         api.getCurrencies().OnSuccess = function(items){
             this.setState({currencies: items});
         }.bind(this);
