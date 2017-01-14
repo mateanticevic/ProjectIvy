@@ -30,14 +30,17 @@ var Movies = React.createClass({
         };
 	  },
       onDragTaskStart: function(event){
-          alert();
+          console.log(event);
       },
       onDropTask: function(event){
-          alert();
+          console.log(event);
       },
       taskRender: function(task, that){
+
+          var taskId = task.projectValueId + "-" + task.valueId;
+
           return(
-              <li className="list-group-item" draggable="true" ondragstart={() => that.onDragTaskStart(event)}>
+              <li key={taskId} className="list-group-item" draggable="true" onDragStart={() => this.onDragTaskStart(event)} onDragEnd={() => this.onDropTask(event)}>
                 {task.projectValueId}-{task.valueId}
                 &nbsp;{task.name}
                 {task.lastChange.status}
