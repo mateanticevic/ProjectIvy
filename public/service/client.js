@@ -302,6 +302,21 @@ api.getExpenseSum = function(from, to){
 	return callback;
 };
 
+api.getWebTimeTotal = function(from, to){
+
+    var query={
+        from: from,
+        to: to
+    };    
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "web/time/total?" + $.param(query);
+
+    $.ajax(call);
+	return callback;
+};
+
 api.putExpense = function(expense){
 
     var callback = {};

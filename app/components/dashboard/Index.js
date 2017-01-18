@@ -11,6 +11,7 @@ var Dashboard = React.createClass({
         this.setState({
             trackingCount: { value: null, unit: "" },
             trackingDistance: { value: null, unit: "" },
+            webTimeTotal: { value: null, unit: "" },
             expenseSum: null,
             movieCount: null
         });
@@ -23,6 +24,12 @@ var Dashboard = React.createClass({
         api.getMovieCount(from, to).OnSuccess = function(count){
             this.setState({movieCount: count});
         }.bind(this);
+
+        api.getWebTimeTotal(from, to).OnSuccess = function(total){
+            var formatted = formatSeconds(total);
+
+            this.setState({webTimeTotal: formatted});
+        }.bind(this);   
 
         api.getExpenseSum(from, to).OnSuccess = function(sum){
             this.setState({expenseSum: sum});
@@ -50,6 +57,7 @@ var Dashboard = React.createClass({
 	  getInitialState: function() {
 		return {
             currentDay: new Date(),
+            webTimeTotal: { value: 0, unit: "" },
             trackingCount: { value: 0, unit: "" },
             trackingDistance: { value: 0, unit: "" },
             trackingLast: {latitude: 0, longitude: 0},
@@ -89,6 +97,9 @@ var Dashboard = React.createClass({
                         <div className="row">
                             <Widget value={this.state.trackingCount.number} unit={this.state.trackingCount.unit} title="Tracking count"/>
                             <Widget value={this.state.trackingDistance.number} unit="km" title="Distance day"/>                    
+                        </div>
+                        <div className="row">
+                            <Widget value={this.state.webTimeTotal.number} unit={this.state.webTimeTotal.unit}  title="Online"/>             
                         </div>
                     </div>
                 </div>

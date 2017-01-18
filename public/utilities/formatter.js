@@ -23,7 +23,22 @@ function formatBigNumber(number, round = 0){
     }
 
     return format;
-};
+}
+
+function formatSeconds(seconds){
+    var format = {};
+
+    if(seconds < 3600){
+        format.number = parseInt(seconds / 60);
+        format.unit = 'm';
+    }
+    else{
+        format.number = Math.round((seconds / 3600) * 10) / 10;
+        format.unit = 'h';
+    }
+
+    return format;
+}
 
 function formatDateString(dateString){
 
