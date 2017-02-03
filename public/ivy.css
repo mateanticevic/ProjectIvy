@@ -37,3 +37,10 @@ body {
 .vertical-offset{
     margin-top: 70px;
 }
+
+.list-item-overflow-hidden{
+    list-style-position:inside;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+}

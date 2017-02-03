@@ -1,7 +1,7 @@
 var api = api || {};
 
-api.domain = "http://localhost:4680/";
-//api.domain = "http://api2.anticevic.net/";
+//api.domain = "http://localhost:4680/";
+api.domain = "http://api2.anticevic.net/";
 
 api.token = "";
 

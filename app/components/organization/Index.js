@@ -1,6 +1,6 @@
 import ItemsPanel from "../common/ItemsPanel"
 
-var Movies = React.createClass({
+var Organization = React.createClass({
 
     toggle: function(){
         this.setState({
@@ -40,8 +40,12 @@ var Movies = React.createClass({
           var taskId = task.projectValueId + "-" + task.valueId;
 
           return(
-              <li key={taskId} className="list-group-item" draggable="true" onDragStart={() => this.onDragTaskStart(event)} onDragEnd={() => this.onDropTask(event)}>
-                {task.projectValueId}-{task.valueId}
+              <li key={taskId}
+                  className="list-group-item list-item-overflow-hidden"
+                  draggable="true" onDragStart={() => this.onDragTaskStart(event)}
+                  title={task.name}
+                  onDragEnd={() => this.onDropTask(event)}>
+                <span className="label label-default">{task.projectValueId}-{task.valueId}</span>
                 &nbsp;{task.name}
                 {task.lastChange.status}
               </li>
@@ -86,4 +90,4 @@ var Movies = React.createClass({
       }
   });  
    
-module.exports = Movies;
+module.exports = Organization;
