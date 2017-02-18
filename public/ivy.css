@@ -44,3 +44,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;  
 }
+
+.row-spacing{
+    margin-bottom: 10px;
+}

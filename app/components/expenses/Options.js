@@ -26,10 +26,7 @@ var Options = React.createClass({
 
         return (
 			<div>
-                <div className="col-lg-6">
-                    {this.props.label}
-                </div>
-                <div className="col-lg-6">
+                <div>
                     <select className="form-control" onChange={this.onSelectChange}>
                         {this.props.defaultText &&
                             <option>{this.props.defaultText}</option>

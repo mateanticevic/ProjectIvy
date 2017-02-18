@@ -1,15 +1,24 @@
 import Options from "./Options";
 import DatePicker from "../common/DatePicker";
+import InputMoney from "../common/InputMoney";
 
 var NewExpense = React.createClass({
 
 	  componentDidMount: function() {
 	  },
+      getCurrencyById: function(id){       
+          for(var i = 0; i < this.props.currencies.length; i++){
+              if(this.props.currencies[i].code == id){
+                  return this.props.currencies[i];
+              }
+          }
+      },
 	  getInitialState: function() {
 		return {
             currencies: [],
             expense: this.props.expense,
             expenseTypes: [],
+            selectedCurrencySymbol: "",
             vendors: []
         };
 	  },
@@ -22,6 +31,7 @@ var NewExpense = React.createClass({
       },
       onCurrencyChange: function(currencyId){
           this.props.onChange('currencyValueId', currencyId);
+          this.setState({selectedCurrencySymbol: this.getCurrencyById(currencyId).symbol});
       },
       onDateChange: function(event){
           alert(event.target.value);
@@ -80,10 +90,7 @@ var NewExpense = React.createClass({
                                                               selectedValue={this.props.expense.currencyValueId}
                                                               defaultText="Select currency"/>
                                     <DatePicker id="date" date={this.props.expense.date} onChange={this.onDateChange} />
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" value={this.props.expense.amount} onChange={this.onAmountChange} />
-                                        <span className="input-group-addon">kn</span>
-                                    </div>
+                                    <InputMoney value={this.props.expense.amount} onValueChange={this.onAmountChange} currency={this.state.selectedCurrencySymbol} />
                                     <div className="input-group">
                                         <span className="input-group-addon">Comment</span>
                                         <input type="text" className="form-control" value={this.props.expense.comment} onChange={this.onCommentChange} />

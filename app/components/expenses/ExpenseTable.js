@@ -7,8 +7,8 @@
       },
 			getInitialState: function() {
 			return {
-							expenses: []
-					};
+					expenses: []
+				};
 			},
       render: function () {
 
@@ -17,7 +17,6 @@
 				var expenseNodes = this.props.items.map(function(expense) {
 				return (
 					<tr key={expense.valueId}>
-						<td onClick={() => that.props.onEdit(expense)}><a href="#"><i className="fa fa-pencil-square-o"></i></a></td>
 						<td>{formatDateString(expense.date)}</td>
 						<td>
 							{expense.expenseType.icon &&
@@ -31,6 +30,11 @@
 						<td>{expense.comment}</td>
 						<td>{expense.amount}</td>
 						<td>{expense.currency.code}</td>
+						<td>
+							<button type="button" className="btn btn-default btn-xs" aria-label="Left Align" onClick={() => that.props.onEdit(expense)}>
+								<span className="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+							</button>
+						</td>
 					</tr>
 				);
 			});
@@ -50,13 +54,13 @@
 						<table id="table-expenses" className="table">
 							<thead>
 								<tr>
-									<th></th>
 									<th>Date</th>
 									<th>Expense type</th>
 									<th>Vendor</th>
 									<th>Comment</th>
 									<th>Amount</th>
 									<th>Currency</th>
+									<th></th>									
 								</tr>
 							</thead>
 							<tbody>

@@ -60,10 +60,11 @@ var Index = React.createClass({
     onClickSearch: function(){
 
         var query={
-            expenseTypeValueId: this.state.typeId,
             from: formatDateForQuery($("#date-from").data('date')),
             to: formatDateForQuery($("#date-to").data('date')),
-            vendorValueId: this.state.vendorId
+            currencyId: this.state.currencyId,
+            typeId: this.state.typeId,            
+            vendorId: this.state.vendorId
         };
 
         api.getExpenses(query).OnSuccess = function(result){
@@ -92,11 +93,13 @@ var Index = React.createClass({
             vendorValueId: this.state.vendorId
         };
         
-
         api.getExpenses(query).OnSuccess = function(result){
             this.setState({expenses: result.items});
             this.setState({expensePage: page});
         }.bind(this);
+    },
+    onCurrencyChange: function(id){
+        this.setState({currencyId: id});
     },
     onTypeChange: function(id){
         this.setState({typeId: id});
@@ -124,14 +127,29 @@ var Index = React.createClass({
                 <div className="row">
                     <div className="col-lg-3">
                         <FilterPanel title="Search">
-                            <Options label="Type"
-                                    items={this.state.expenseTypes}
-                                    onChange={this.onTypeChange}
-                                    defaultText="All types"/>
-                            <Options label="Vendor"
-                                    items={this.state.vendors}
-                                    onChange={this.onVendorChange}
-                                    defaultText="All vendors"/>
+                        <div className="row row-spacing">
+                            <div className="col-md-12">
+                                <Options label="Type"
+                                        items={this.state.expenseTypes}
+                                        onChange={this.onTypeChange}
+                                        defaultText="Any type"/>
+                            </div>
+                        </div>
+                        <div className="row row-spacing">
+                            <div className="col-md-12">
+                                <Options label="Vendor"
+                                        items={this.state.vendors}
+                                        onChange={this.onVendorChange}
+                                        defaultText="Any vendor"/>
+                            </div>
+                        </div>
+                        <div className="row row-spacing">
+                            <div className="col-md-12">
+                                <Options items={this.state.currencies}
+                                        onChange={this.onCurrencyChange}
+                                        defaultText="Any currency"/>
+                            </div>
+                        </div>
                             <DatePicker id="date-from" />
                             <DatePicker id="date-to" />
                             <button type="button" className="btn btn-default" onClick={this.onClickSearch}>Search</button>
