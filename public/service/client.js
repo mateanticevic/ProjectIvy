@@ -384,3 +384,24 @@ api.getUser = function(){
     $.ajax(call);
 	return callback;
 };
+
+api.getCarLogLatest = function(carId){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "car/" + carId + "/log/latest";
+
+    $.ajax(call);
+	return callback;
+};
+
+api.putCarLog = function(carId, carLog){
+
+    var callback = {};
+	var call = api.put(callback);
+    call.url = api.domain + "car/" + carId + "/log";
+    call.data = JSON.stringify(carLog);
+
+    $.ajax(call);
+	return callback;
+};

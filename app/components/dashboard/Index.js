@@ -1,9 +1,11 @@
+import CarLogWidget from "./CarLogWidget";
 import Widget from "./Widget";
 import Map from "../common/Map";
 
 var Dashboard = React.createClass({
 
-	  componentDidMount: function() {       
+	  componentDidMount: function() {
+        this.updateCarLogLatest();       
         this.loadDay(dateTime.today);
 	  },
       loadDay: function(day) {
@@ -56,6 +58,8 @@ var Dashboard = React.createClass({
       },
 	  getInitialState: function() {
 		return {
+            carLogEntry: {},
+            carLogLast: {},
             currentDay: new Date(),
             webTimeTotal: { value: 0, unit: "" },
             trackingCount: { value: 0, unit: "" },
@@ -70,15 +74,38 @@ var Dashboard = React.createClass({
 
           this.loadDay(nextDay);
       },
+      onCarLogChange: function(keyValue) {
+        this.state.carLogEntry[keyValue.key] = keyValue.value;
+        this.setState({carLogEntry: this.state.carLogEntry});
+      },
+      onCarLogSave: function() {
+          api.putCarLog("punto", this.state.carLogEntry).OnSuccess = function(){
+              this.updateCarLogLatest();
+              this.setState({carLogEntry: { odometer: '' }});
+          }.bind(this);
+      },
       onClickPreviousDay: function() {
           var previousDay = dateTime.previous(this.state.currentDay);
           this.setState({currentDay: previousDay});
 
           this.loadDay(previousDay);
       },
+      updateCarLogLatest: function(){
+        api.getCarLogLatest("punto").OnSuccess = function(carLog){
+            this.setState({carLogLast: carLog});
+        }.bind(this);
+      },
       render: function () {
         return (
             <div>
+                <div className="row">
+                    <div className="col-md-3">
+                        <CarLogWidget new={this.state.carLogEntry}
+                                      last={this.state.carLogLast}
+                                      onChange={this.onCarLogChange}
+                                      onSave={this.onCarLogSave} />
+                    </div>
+                </div>
                 <div className="row">
                     <div className="btn-group btn-group-sm" role="group" aria-label="Large button group">
                         <button type="button" className="btn btn-default" onClick={this.onClickPreviousDay}>Previous</button>

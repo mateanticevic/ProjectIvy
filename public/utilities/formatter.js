@@ -51,6 +51,14 @@ function formatDateString(dateString){
     return date.getDate() + ' ' +  monthNames[date.getMonth()] + ' ' + date.getFullYear();
 };
 
+function formatDateTimeString(dateTimeString){
+
+    var dateTime = new Date(dateTimeString);
+
+    var dateString = formatDateString(dateTimeString);
+    return dateString + " " + dateTime.getHours() + ":" + dateTime.getMinutes();
+};
+
 function formatDateForQuery(dateString){
 
     var date = new Date(dateString);
