@@ -1,4 +1,5 @@
 import ItemsPanel from "../common/ItemsPanel"
+import TaskAddEdit from "./TaskAddEdit"
 
 var Organization = React.createClass({
 
@@ -9,21 +10,34 @@ var Organization = React.createClass({
     },
 	  componentDidMount: function() {
           
+          this.updateTasksNew();
+
           api.getTasks('in-progress').OnSuccess = function(items){
               this.setState({tasksInProgress: items});
-            }.bind(this);
-
-          api.getTasks('new').OnSuccess = function(items){
-              this.setState({tasksNew: items});
             }.bind(this);
 
           api.getTasks('to-do').OnSuccess = function(items){
               this.setState({tasksToDo: items});
             }.bind(this);
 
+          api.getProjects().OnSuccess = function(projects){
+              this.setState({projects: projects});
+            }.bind(this);
+
+          api.getTaskTypes().OnSuccess = function(types){
+              this.setState({types: types});
+            }.bind(this);
+
+          api.getTaskPriorities().OnSuccess = function(priorities){
+              this.setState({priorities: priorities});
+            }.bind(this);
 	  },
 	  getInitialState: function() {
 		return {
+            projects: [],
+            types: [],
+            priorities: [],
+            taskNew: {},
             tasksToDo: [],
             tasksNew: [],
             tasksInProgress: []
@@ -34,6 +48,20 @@ var Organization = React.createClass({
       },
       onDropTask: function(event){
           console.log(event);
+      },
+      onTaskChange: function(property, value){
+          this.state.taskNew[property] = value;
+          this.setState({newTask: this.state.newTask});
+      },
+      onTaskSave: function(){
+          api.putTask(this.state.taskNew).OnSuccess = function(){
+              this.updateTasksNew();
+            }.bind(this);
+      },
+      updateTasksNew: function(){
+          api.getTasks('new').OnSuccess = function(items){
+              this.setState({tasksNew: items});
+            }.bind(this);
       },
       taskRender: function(task, that){
 
@@ -60,9 +88,13 @@ var Organization = React.createClass({
         return (
             <div>
                 <div className="row">
-                    <button type="button" className="btn btn-default" data-toggle="modal" data-target="#myModal">
-                        <span className="fa fa-plus"></span> New
-                    </button>
+                    <div className="col-md-12">
+                        <TaskAddEdit projects={this.state.projects}
+                                     types={this.state.types}
+                                     priorities={this.state.priorities}
+                                     onSave={this.onTaskSave}
+                                     onChange={this.onTaskChange} />
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-lg-4">

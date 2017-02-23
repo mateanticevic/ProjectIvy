@@ -359,6 +359,36 @@ api.getMovies = function(query){
 	return callback;
 };
 
+api.getProjects = function(){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "project";
+
+    $.ajax(call);
+	return callback;
+};
+
+api.getTaskTypes = function(){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "task/type";
+
+    $.ajax(call);
+	return callback;
+};
+
+api.getTaskPriorities = function(){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "task/priority";
+
+    $.ajax(call);
+	return callback;
+};
+
 api.getTasks = function(status, priority, type){
 
     var query={
@@ -401,6 +431,17 @@ api.putCarLog = function(carId, carLog){
 	var call = api.put(callback);
     call.url = api.domain + "car/" + carId + "/log";
     call.data = JSON.stringify(carLog);
+
+    $.ajax(call);
+	return callback;
+};
+
+api.putTask = function(task){
+
+    var callback = {};
+	var call = api.put(callback);
+    call.url = api.domain + "project/" + task.projectId + "/task";
+    call.data = JSON.stringify(task);
 
     $.ajax(call);
 	return callback;

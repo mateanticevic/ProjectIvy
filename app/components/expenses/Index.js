@@ -1,6 +1,6 @@
 import ExpenseTable from "./ExpenseTable"
 import NewExpense from "./NewExpense"
-import Options from "./Options";
+import Options from "../common/Options";
 import DatePicker from "../common/DatePicker";
 import ItemsPanel from "../common/ItemsPanel"
 import FilterPanel from "../common/FilterPanel"
