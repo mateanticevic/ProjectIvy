@@ -11,7 +11,11 @@
 				<td>{formatDateString(movie.timestamp)}</td>
 				<td>{movie.title}</td>
 				<td>{movie.year}</td>
-				<td><a href={'http://www.imdb.com/title/' + movie.imdbId}>{movie.imdbId}</a></td>
+				<td>
+					<a target="_blank" href={'http://www.imdb.com/title/' + movie.imdbId}>
+						<span className="fa fa-imdb fa-lg" aria-hidden="true"></span> {movie.imdbId}
+					</a>
+				</td>
 				<td>{movie.runtime} min</td>
 				<td>{movie.rating}</td>
 				<td>{movie.myRating}</td>
