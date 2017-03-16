@@ -17,6 +17,7 @@ var Incomes = React.createClass({
               return(
                 <tr>
                     <td>{formatDateString(item.timestamp)}</td>
+                    <td>{item.type.name}</td>
                     <td>{item.description}</td>
                     <td>{item.source.name}</td>
                     <td>{item.amount}</td>
@@ -32,6 +33,7 @@ var Incomes = React.createClass({
                                                 <thead>
                                                     <tr>
                                                         <th>Timestamp</th>
+                                                        <th>Type</th>
                                                         <th>Description</th>
                                                         <th>Payee</th>
                                                         <th>Amount</th>
