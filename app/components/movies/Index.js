@@ -8,9 +8,7 @@ var Movies = React.createClass({
 
 	  componentDidMount: function() {
 
-        api.getMovies({}).OnSuccess = function(items){
-            this.setState({movies: items});
-        }.bind(this);
+        this.getMovies();
 
         api.getMovieCount().OnSuccess = function(count){
             this.setState({totalCount: count});
@@ -54,8 +52,8 @@ var Movies = React.createClass({
 			year: this.state.year
 		};
 
-        api.getMovies(query).OnSuccess = function(items){
-            this.setState({movies: items});
+        api.getMovies(query).OnSuccess = function(data){
+            this.setState({movies: data});
         }.bind(this);
 	  },
 	  getRatings: function(){
@@ -91,7 +89,7 @@ var Movies = React.createClass({
 	  },
 	  getInitialState: function() {
 		return {
-			movies: [],
+			movies: {items: [], count: 0},
 			myRatings: this.getMyRatings(),
 			ratings: this.getRatings(),
 			years: this.getYears(),
@@ -154,8 +152,8 @@ var Movies = React.createClass({
 								</FilterPanel>
 							</div>
 							<div className="col-md-9">
-								<ItemsPanel title="Movies">
-									<TableMovies items={this.state.movies} />
+								<ItemsPanel title="Movies" count={this.state.movies.count}>
+									<TableMovies items={this.state.movies.items} />
 								</ItemsPanel>
 							</div>
 						</div>

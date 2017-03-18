@@ -15,10 +15,10 @@ var Index = React.createClass({
             this.setState({currencies: items});
         }.bind(this);
 
-        api.getExpenses({}).OnSuccess = function(result){
+        api.getExpenses({}).OnSuccess = function(data){
             this.setState({
-                expenses: result.items,
-                expensePageCount: result.pages
+                expenses: data,
+                expensePageCount: data.count
             });
         }.bind(this);
 
@@ -51,13 +51,13 @@ var Index = React.createClass({
         return {
             currencies: [],
             expense: defaults.expense(),
-            expenses: [],
+            expenses: {items: [], count: 0},
             expensePage: 0,
             expenseTypes: [],
             vendors: []
         };
     },
-    onClickSearch: function(){
+    getExpenses: function(){
 
         var query={
             from: formatDateForQuery($("#date-from").data('date')),
@@ -67,8 +67,8 @@ var Index = React.createClass({
             vendorId: this.state.vendorId
         };
 
-        api.getExpenses(query).OnSuccess = function(result){
-            this.setState({expenses: result.items});
+        api.getExpenses(query).OnSuccess = function(data){
+            this.setState({expenses: data});
         }.bind(this);
     },
     onExpenseEdit: function(expense){
@@ -99,13 +99,13 @@ var Index = React.createClass({
         }.bind(this);
     },
     onCurrencyChange: function(id){
-        this.setState({currencyId: id});
+        this.setState({currencyId: id}, this.getExpenses);
     },
     onTypeChange: function(id){
-        this.setState({typeId: id});
+        this.setState({typeId: id}, this.getExpenses);
     },
     onVendorChange: function(id){
-        this.setState({vendorId: id});
+        this.setState({vendorId: id}, this.getExpenses);
     },
     render: function(){
         return (
@@ -152,13 +152,12 @@ var Index = React.createClass({
                         </div>
                             <DatePicker id="date-from" />
                             <DatePicker id="date-to" />
-                            <button type="button" className="btn btn-default" onClick={this.onClickSearch}>Search</button>
                         </FilterPanel>
                     </div>
                     <div className="col-lg-9">
                         <div className="row">
-                            <ItemsPanel title="Expenses">
-                                <ExpenseTable items={this.state.expenses}
+                            <ItemsPanel title="Expenses" count={this.state.expenses.count}>
+                                <ExpenseTable items={this.state.expenses.items}
                                             onEdit={this.onExpenseEdit}
                                             onPageClick={this.onPageChange}
                                             page={this.state.expensePage}

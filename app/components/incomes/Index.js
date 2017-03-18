@@ -4,16 +4,20 @@ var Incomes = React.createClass({
 
 	  componentDidMount: function() {
 
-        api.getIncomes({}).OnSuccess = function(items){
-            this.setState({incomes: items});
+        api.getIncomes({}).OnSuccess = function(data){
+            this.setState({
+                incomes: data
+            });
         }.bind(this);
 
 	  },
 	  getInitialState: function() {
-		return {incomes: []};
+		return {
+            incomes: { items: [], count: null}
+        };
 	  },
       render: function () {
-          var incomes = this.state.incomes.map(function(item) {
+          var incomes = this.state.incomes.items.map(function(item) {
               return(
                 <tr>
                     <td>{formatDateString(item.timestamp)}</td>
@@ -28,7 +32,7 @@ var Incomes = React.createClass({
         return (
 					<div>
 						<div className="col-lg-12">
-							<ItemsPanel title="Incomes">
+							<ItemsPanel title="Incomes" count={this.state.incomes.count}>
                                 <table className="table">
                                                 <thead>
                                                     <tr>
