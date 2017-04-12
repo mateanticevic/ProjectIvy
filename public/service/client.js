@@ -216,7 +216,7 @@ api.getExpenseTypes = function(){
 
     var callback = {};
 	var call = api.get(callback);
-    call.url = api.domain + "expensetype";
+    call.url = api.domain + "expensetype?hasChildren=false";
 
     $.ajax(call);
 	return callback;
