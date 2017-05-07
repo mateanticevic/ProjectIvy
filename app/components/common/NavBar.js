@@ -1,6 +1,7 @@
 import Expenses from "../expenses/Index"
 import Incomes from "../incomes/Index"
 import Movies from "../movies/Index"
+import Trips from "../trips/Index"
 import Organization from "../organization/Index"
 import Home from "../dashboard/Index"
 
@@ -22,6 +23,9 @@ var NavBar = React.createClass({
     },
     openMovies: function(){
         this.setContent(<Movies />);
+    },
+    openTrips: function(){
+        this.setContent(<Trips />);
     },
     openOrganization: function(){
         this.setContent(<Organization />);
@@ -46,6 +50,7 @@ var NavBar = React.createClass({
                             <li><a href="#" onClick={this.openIncomes}>Incomes</a></li>
                             <li><a href="#" onClick={this.openOrganization}>Organization</a></li>
                             <li><a href="#" onClick={this.openMovies}>Movies</a></li>
+                            <li><a href="#" onClick={this.openTrips}>Trips</a></li>                            
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li><a href="#" onClick={this.openHome}><i className={faIcon("fa-user fa-lg")} aria-hidden="true"></i> {this.state.displayName}</a></li>

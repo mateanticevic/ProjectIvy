@@ -262,6 +262,16 @@ api.getIncomes = function(query){
 	return callback;
 };
 
+api.getTrips = function(){
+
+    var callback = {};
+	var call = api.get(callback);
+    call.url = api.domain + "trip?pageSize=100";
+
+    $.ajax(call);
+	return callback;
+};
+
 api.getExpenses = function(query){
 
     var callback = {};
